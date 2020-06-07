@@ -109,7 +109,7 @@ public class AAXCustomerContactPersonsEntity extends common
 			</Method>
 		</Methods>
 	</SourceCode>
-	<Label>Customer contact persons</Label>
+	<Label>@AAXDataEntities:CustomerContactPersons</Label>
 	<Tags>Vendor</Tags>
 	<DataManagementEnabled>Yes</DataManagementEnabled>
 	<DataManagementStagingTable>AAXCustomerContactPersonsStaging</DataManagementStagingTable>

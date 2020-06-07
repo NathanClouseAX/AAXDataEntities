@@ -30,14 +30,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Data Entities\" />
+    <Folder Include="Label Files\" />
     <Folder Include="Security Privileges\" />
     <Folder Include="Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AAXDataEntities.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>AAXDataEntities.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\AAXDataEntities_en-US</DependentUpon>
+    </Content>
     <Content Include="AxDataEntityView\AAXCustomerContactPersonsEntity">
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonsEntity</Name>
       <Link>Data Entities\AAXCustomerContactPersonsEntity</Link>
+    </Content>
+    <Content Include="AxLabelFile\AAXDataEntities_en-US">
+      <SubType>Content</SubType>
+      <Name>AAXDataEntities_en-US</Name>
+      <Link>Label Files\AAXDataEntities_en-US</Link>
     </Content>
     <Content Include="AxSecurityPrivilege\AAXCustomerContactPersonsEntityExport">
       <SubType>Content</SubType>

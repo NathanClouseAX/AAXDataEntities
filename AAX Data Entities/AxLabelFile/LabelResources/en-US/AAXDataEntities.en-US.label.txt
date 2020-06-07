@@ -1,0 +1,5 @@
+﻿NewLabel0=Label files created on 06/06/2020 20:22:43 for label file Id AAXDataEntities and language en-US
+ ;Label file comment - see above label
+CustomerContactPersons=Customer Contact Persons
+CustomerContactPersonsExport=Customer Contact Persons Export
+CustomerContactPersonsImport=Customer Contact Persons Import
