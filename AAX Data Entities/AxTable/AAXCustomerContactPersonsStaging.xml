@@ -5,8 +5,10 @@
 		<Methods />
 	</SourceCode>
 	<DeveloperDocumentation>@DMF:StagingDeveloperDocumentation</DeveloperDocumentation>
-	<Label>Customer contact persons</Label>
+	<Label>@AAXDataEntities:CustomerContactPersons</Label>
 	<TableGroup>Staging</TableGroup>
+	<TitleField1>CustomerAccountNumber</TitleField1>
+	<TitleField2>ContactPersonName</TitleField2>
 	<PrimaryIndex>StagingIdx</PrimaryIndex>
 	<ReplacementKey>StagingIdx</ReplacementKey>
 	<SaveDataPerCompany>No</SaveDataPerCompany>

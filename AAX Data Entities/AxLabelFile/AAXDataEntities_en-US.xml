@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxLabelFile xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AAXDataEntities_en-US</Name>
+	<LabelContentFileName>AAXDataEntities.en-US.label.txt</LabelContentFileName>
+	<LabelFileId>AAXDataEntities</LabelFileId>
+	<RelativeUriInModelStore>AAXDataEntities\AAX Data Entities\AxLabelFile\LabelResources\en-US\AAXDataEntities.en-US.label.txt</RelativeUriInModelStore>
+</AxLabelFile>
