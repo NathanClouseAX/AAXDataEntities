@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>AAX Data Entities</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{1f0bbdef-6f74-463b-b308-5089c6519423}</ProjectGuid>
+    <Name>AAXDataEntities</Name>
+    <RootNamespace>AAXDataEntities</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Data Entities\" />
+    <Folder Include="Security Privileges\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxDataEntityView\AAXCustomerContactPersonsEntity">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactPersonsEntity</Name>
+      <Link>Data Entities\AAXCustomerContactPersonsEntity</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerContactPersonsEntityExport">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactPersonsEntityExport</Name>
+      <Link>Security Privileges\AAXCustomerContactPersonsEntityExport</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerContactPersonsEntityImport">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactPersonsEntityImport</Name>
+      <Link>Security Privileges\AAXCustomerContactPersonsEntityImport</Link>
+    </Content>
+    <Content Include="AxTable\AAXCustomerContactPersonsStaging">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactPersonsStaging</Name>
+      <Link>Tables\AAXCustomerContactPersonsStaging</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

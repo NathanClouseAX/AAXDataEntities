@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityPrivilege xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AAXCustomerContactPersonsEntityImport</Name>
+	<DataEntityPermissions>
+		<AxSecurityDataEntityPermission>
+			<Grant>
+				<Correct>Allow</Correct>
+				<Create>Allow</Create>
+				<Read>Allow</Read>
+				<Update>Allow</Update>
+			</Grant>
+			<Name>AAXCustomerContactPersonsEntity</Name>
+			<Fields />
+			<Methods />
+		</AxSecurityDataEntityPermission>
+	</DataEntityPermissions>
+	<DirectAccessPermissions />
+	<EntryPoints />
+	<FormControlOverrides />
+</AxSecurityPrivilege>

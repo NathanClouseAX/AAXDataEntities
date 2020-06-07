@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxDataEntityView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AAXCustomerContactPersonsEntity</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The AAXCustomerContactInfoEntity provides a entity to use for import/export which does not require
+/// the knowledge of a Customer party number.
+/// </summary>
+public class AAXCustomerContactPersonsEntity extends common
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initializeEntityDataSource</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// The initializeEntityDataSource method will lookup the party and location numbers if needed and set on the current buffer
+    /// </summary>
+    /// <param name = "_entityCtx">The context of the current operation</param>
+    /// <param name = "_dataSourceCtx">The context of the current data entity</param>
+    /// <remarks>
+    /// </remarks>
+    public void initializeEntityDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
+    {
+       
+        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXCustomerContactPersonsEntity, smmContactPersonV2Entity))
+        {
+            this.skipDataSourceValidateField(fieldNum(AAXCustomerContactPersonsEntity, ContactPersonId), true);
+
+            this.setPartyNumber();
+
+            if (_entityCtx.getDatabaseOperation() == DataEntityDatabaseOperation::Update)
+            {
+                _dataSourceCtx.setBuffer(this.resolveContactPersonEntity());
+            }
+        }
+
+        super(_entityCtx, _dataSourceCtx);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setPartyNumber</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// The setPartyNumberAndLocationId method sets the party number and location if needed
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public void setPartyNumber()
+    {
+        CustTable custTable = CustTable::find(this.CustomerAccountNumber);
+        DirPartyNumber partyNumber = DirPartyTable::findRec(custTable.Party).PartyNumber;
+        this.AssociatedPartyNumber = partyNumber;
+        
+        if (this.PrimaryAddressLocationId == '')
+        {
+            DirPartyLocation dirPartyLocation = DirPartyLocation::findOrCreate(custTable.party, 0);
+            this.PrimaryAddressLocationId = LogisticsLocation::find(dirPartyLocation.Location).LocationId;
+        }
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>mapEntityToDataSource</Name>
+				<Source><![CDATA[
+    public void mapEntityToDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
+    {
+
+        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXCustomerContactPersonsEntity, smmContactPersonV2Entity))
+        {
+            this.setPartyNumber();
+        }
+
+        super(_entityCtx, _dataSourceCtx);
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>resolveContactPersonEntity</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// The resolveDirPartyContactEntity finds the DirPartyContactEntity record which matches the key fields
+    /// </summary>
+    /// <returns>
+    /// A DirPartyContactEntity matching the key fields if found
+    /// </returns>
+    /// <remarks>
+    /// </remarks>
+    private smmContactPersonV2Entity resolveContactPersonEntity()
+    {
+        smmContactPersonV2Entity contactPersonEntity;
+
+        select firstonly contactPersonEntity
+            where contactPersonEntity.ContactPersonId == this.contactPersonId;
+
+        return contactPersonEntity;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Label>Customer contact persons</Label>
+	<Tags>Vendor</Tags>
+	<DataManagementEnabled>Yes</DataManagementEnabled>
+	<DataManagementStagingTable>AAXCustomerContactPersonsStaging</DataManagementStagingTable>
+	<Modules>AccountsReceivable</Modules>
+	<PrimaryCompanyContext>CustomerDataAreaId</PrimaryCompanyContext>
+	<PrimaryKey>EntityKey</PrimaryKey>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>FirstName</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>LastName</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonResponsiblePersonnelNumber</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>PrimaryAddressDescription</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonPartyType</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>CustomerAccountNumber</Name>
+			<DataField>AccountNum</DataField>
+			<DataSource>CustTable</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>CustomerDataAreaId</Name>
+			<AccessModifier>Internal</AccessModifier>
+			<AllowEdit>No</AllowEdit>
+			<DataField>DataAreaId</DataField>
+			<DataSource>CustTable</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AddressBookNames</Name>
+			<DataField>AddressBookNames</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AlternateComplimentaryClosingPhrase</Name>
+			<DataField>AlternateComplimentaryClosingPhrase</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AlternateSalutationPhrase</Name>
+			<DataField>AlternateSalutationPhrase</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AnniversaryDay</Name>
+			<DataField>AnniversaryDay</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AnniversaryMonth</Name>
+			<DataField>AnniversaryMonth</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AnniversaryYear</Name>
+			<DataField>AnniversaryYear</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AssistantName</Name>
+			<DataField>AssistantName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AssistantPhoneNumber</Name>
+			<DataField>AssistantPhoneNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AssociatedPartyNumber</Name>
+			<AccessModifier>Private</AccessModifier>
+			<DataField>AssociatedPartyNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AvailableFromTime</Name>
+			<DataField>AvailableFromTime</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>AvailableToTime</Name>
+			<DataField>AvailableToTime</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>BillingInformation</Name>
+			<DataField>BillingInformation</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>BirthDay</Name>
+			<DataField>BirthDay</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>BirthMonth</Name>
+			<DataField>BirthMonth</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>BirthYear</Name>
+			<DataField>BirthYear</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ChildrenNames</Name>
+			<DataField>ChildrenNames</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactActivitySensitivityLevel</Name>
+			<DataField>ContactActivitySensitivityLevel</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactInformationLanguageId</Name>
+			<DataField>ContactInformationLanguageId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactPersonId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>Yes</AllowEditOnCreate>
+			<Mandatory>No</Mandatory>
+			<DataField>ContactPersonId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactPersonName</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<Mandatory>No</Mandatory>
+			<DataField>ContactPersonName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactPersonPartyNumber</Name>
+			<AccessModifier>Private</AccessModifier>
+			<DataField>ContactPersonPartyNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactPersonPartyType</Name>
+			<AccessModifier>Private</AccessModifier>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<Mandatory>No</Mandatory>
+			<DataField>ContactPersonPartyType</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ContactPersonResponsiblePersonnelNumber</Name>
+			<DataField>ContactPersonResponsiblePersonnelNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DecisionMakingRoleCode</Name>
+			<DataField>DecisionMakingRoleCode</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DisplayNameSequencePatternName</Name>
+			<DataField>DisplayNameSequencePatternName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ElectronicLocationId</Name>
+			<DataField>ElectronicLocationId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentComputerNetworkName</Name>
+			<DataField>EmploymentComputerNetworkName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentDepartment</Name>
+			<DataField>EmploymentDepartment</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentJobFunctionName</Name>
+			<DataField>EmploymentJobFunctionName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentJobTitle</Name>
+			<DataField>EmploymentJobTitle</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentOfficeLocation</Name>
+			<DataField>EmploymentOfficeLocation</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>EmploymentProfession</Name>
+			<DataField>EmploymentProfession</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FirstName</Name>
+			<DataField>FirstName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>FormattedPrimaryAddress</Name>
+			<DataField>FormattedPrimaryAddress</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>Gender</Name>
+			<DataField>Gender</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>GovernmentIdentificationNumber</Name>
+			<DataField>GovernmentIdentificationNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>HasRequestedInternetAccess</Name>
+			<DataField>HasRequestedInternetAccess</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>Hobbies</Name>
+			<DataField>Hobbies</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IdentityCardNumber</Name>
+			<DataField>IdentityCardNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>Initials</Name>
+			<DataField>Initials</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsContactPersonExternallyMaintained</Name>
+			<DataField>IsContactPersonExternallyMaintained</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsDefaultContactPerson</Name>
+			<DataField>IsDefaultContactPerson</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsImported</Name>
+			<DataField>IsImported</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsInactive</Name>
+			<DataField>IsInactive</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsPrimaryEmailAddressIMEnabled</Name>
+			<DataField>IsPrimaryEmailAddressIMEnabled</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsPrimaryPhoneNumberMobile</Name>
+			<DataField>IsPrimaryPhoneNumberMobile</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsReceivingDirectMail</Name>
+			<DataField>IsReceivingDirectMail</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsVendorPortalAccessAllowed</Name>
+			<DataField>IsVendorPortalAccessAllowed</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsVIP</Name>
+			<DataField>IsVIP</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>KnownAsName</Name>
+			<DataField>KnownAsName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>LastEditDateTime</Name>
+			<AccessModifier>Private</AccessModifier>
+			<DataField>LastEditDateTime</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>LastName</Name>
+			<DataField>LastName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>LoyaltyLevelPhrase</Name>
+			<DataField>LoyaltyLevelPhrase</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>MainResponsibleWorker</Name>
+			<DataField>MainResponsibleWorker</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ManagerContactPersonId</Name>
+			<DataField>ManagerContactPersonId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>MaritalStatus</Name>
+			<DataField>MaritalStatus</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>MicrosoftOutlookCategories</Name>
+			<DataField>MicrosoftOutlookCategories</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>MiddleName</Name>
+			<DataField>MiddleName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>MileageDistance</Name>
+			<DataField>MileageDistance</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>NameValidFrom</Name>
+			<DataField>NameValidFrom</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>NameValidTo</Name>
+			<DataField>NameValidTo</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>Notes</Name>
+			<DataField>Notes</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>OrganizationIdentificationNumber</Name>
+			<DataField>OrganizationIdentificationNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PersonalCharacterTypeCode</Name>
+			<DataField>PersonalCharacterTypeCode</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PhoneticFirstName</Name>
+			<DataField>PhoneticFirstName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PhoneticLastName</Name>
+			<DataField>PhoneticLastName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PhoneticMiddleName</Name>
+			<DataField>PhoneticMiddleName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressBuildingCompliment</Name>
+			<DataField>PrimaryAddressBuildingCompliment</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressCity</Name>
+			<DataField>PrimaryAddressCity</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressCityInKana</Name>
+			<DataField>PrimaryAddressCityInKana</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressCountryRegionId</Name>
+			<DataField>PrimaryAddressCountryRegionId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressCountryRegionISOCode</Name>
+			<DataField>PrimaryAddressCountryRegionISOCode</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressCountyId</Name>
+			<DataField>PrimaryAddressCountyId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressDescription</Name>
+			<DataField>PrimaryAddressDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressDistrictName</Name>
+			<DataField>PrimaryAddressDistrictName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressLatitude</Name>
+			<DataField>PrimaryAddressLatitude</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressLocationId</Name>
+			<AccessModifier>Internal</AccessModifier>
+			<DataField>PrimaryAddressLocationId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressLocationRoles</Name>
+			<DataField>PrimaryAddressLocationRoles</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressLongitude</Name>
+			<DataField>PrimaryAddressLongitude</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressPostBox</Name>
+			<DataField>PrimaryAddressPostBox</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressStateId</Name>
+			<DataField>PrimaryAddressStateId</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressStreet</Name>
+			<DataField>PrimaryAddressStreet</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressStreetInKana</Name>
+			<DataField>PrimaryAddressStreetInKana</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressStreetNumber</Name>
+			<DataField>PrimaryAddressStreetNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressTimeZone</Name>
+			<DataField>PrimaryAddressTimeZone</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressValidFrom</Name>
+			<AccessModifier>Private</AccessModifier>
+			<DataField>PrimaryAddressValidFrom</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressValidTo</Name>
+			<AccessModifier>Private</AccessModifier>
+			<DataField>PrimaryAddressValidTo</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryAddressZipCode</Name>
+			<DataField>PrimaryAddressZipCode</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryComplimentaryClosingPhrase</Name>
+			<DataField>PrimaryComplimentaryClosingPhrase</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryEmailAddress</Name>
+			<DataField>PrimaryEmailAddress</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryEmailAddressDescription</Name>
+			<DataField>PrimaryEmailAddressDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryEmailAddressPurpose</Name>
+			<DataField>PrimaryEmailAddressPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFacebook</Name>
+			<DataField>PrimaryFacebook</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFacebookDescription</Name>
+			<DataField>PrimaryFacebookDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFacebookPurpose</Name>
+			<DataField>PrimaryFacebookPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFaxNumber</Name>
+			<DataField>PrimaryFaxNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFaxNumberDescription</Name>
+			<DataField>PrimaryFaxNumberDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFaxNumberExtension</Name>
+			<DataField>PrimaryFaxNumberExtension</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryFaxNumberPurpose</Name>
+			<DataField>PrimaryFaxNumberPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryLinkedIn</Name>
+			<DataField>PrimaryLinkedIn</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryLinkedInDescription</Name>
+			<DataField>PrimaryLinkedInDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryLinkedInPurpose</Name>
+			<DataField>PrimaryLinkedInPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryPhoneNumber</Name>
+			<DataField>PrimaryPhoneNumber</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryPhoneNumberDescription</Name>
+			<DataField>PrimaryPhoneNumberDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryPhoneNumberExtension</Name>
+			<DataField>PrimaryPhoneNumberExtension</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryPhoneNumberPurpose</Name>
+			<DataField>PrimaryPhoneNumberPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimarySalutationPhrase</Name>
+			<DataField>PrimarySalutationPhrase</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTelex</Name>
+			<DataField>PrimaryTelex</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTelexDescription</Name>
+			<DataField>PrimaryTelexDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTelexPurpose</Name>
+			<DataField>PrimaryTelexPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTwitter</Name>
+			<DataField>PrimaryTwitter</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTwitterDescription</Name>
+			<DataField>PrimaryTwitterDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryTwitterPurpose</Name>
+			<DataField>PrimaryTwitterPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryURL</Name>
+			<DataField>PrimaryURL</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryURLDescription</Name>
+			<DataField>PrimaryURLDescription</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>PrimaryURLPurpose</Name>
+			<DataField>PrimaryURLPurpose</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProfessionalSuffix</Name>
+			<DataField>ProfessionalSuffix</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProfessionalTitle</Name>
+			<DataField>ProfessionalTitle</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>SearchName</Name>
+			<DataField>SearchName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>SpouseName</Name>
+			<DataField>SpouseName</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>UserRole</Name>
+			<DataField>UserRole</DataField>
+			<DataSource>smmContactPersonV2Entity</DataSource>
+		</AxDataEntityViewField>
+	</Fields>
+	<Keys>
+		<AxDataEntityViewKey>
+			<Name>EntityKey</Name>
+			<Fields>
+				<AxDataEntityViewKeyField>
+					<DataField>ContactPersonId</DataField>
+				</AxDataEntityViewKeyField>
+			</Fields>
+		</AxDataEntityViewKey>
+	</Keys>
+	<Mappings />
+	<Ranges />
+	<Relations>
+		<AxDataEntityViewRelation xmlns=""
+			i:type="AxDataEntityViewRelationForeignKey">
+			<Name>CustTable</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<RelatedDataEntity>CustTable</RelatedDataEntity>
+			<RelatedDataEntityCardinality>ExactlyOne</RelatedDataEntityCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints />
+		</AxDataEntityViewRelation>
+	</Relations>
+	<StateMachines />
+	<ViewMetadata>
+		<Name>Metadata</Name>
+		<SourceCode>
+			<Methods>
+				<Method>
+					<Name>classDeclaration</Name>
+					<Source><![CDATA[
+[Query]
+public class Metadata extends QueryRun
+{
+}
+]]></Source>
+				</Method>
+			</Methods>
+		</SourceCode>
+		<DataSources>
+			<AxQuerySimpleRootDataSource>
+				<Name>smmContactPersonV2Entity</Name>
+				<DynamicFields>Yes</DynamicFields>
+				<Table>smmContactPersonV2Entity</Table>
+				<DataSources>
+					<AxQuerySimpleEmbeddedDataSource>
+						<Name>DirPartyTable</Name>
+						<DynamicFields>Yes</DynamicFields>
+						<IsReadOnly>Yes</IsReadOnly>
+						<Table>DirPartyTable</Table>
+						<DataSources>
+							<AxQuerySimpleEmbeddedDataSource>
+								<Name>CustTable</Name>
+								<DynamicFields>Yes</DynamicFields>
+								<IsReadOnly>Yes</IsReadOnly>
+								<Table>CustTable</Table>
+								<DataSources />
+								<DerivedDataSources />
+								<Fields />
+								<Ranges />
+								<Relations>
+									<AxQuerySimpleDataSourceRelation>
+										<Name>QueryDataSourceRelation1</Name>
+										<Field>RecId</Field>
+										<JoinDataSource>DirPartyTable</JoinDataSource>
+										<RelatedField>Party</RelatedField>
+									</AxQuerySimpleDataSourceRelation>
+								</Relations>
+							</AxQuerySimpleEmbeddedDataSource>
+						</DataSources>
+						<DerivedDataSources>
+							<AxQuerySimpleDerivedDataSource>
+								<Name>DirPartyTable_DirPerson</Name>
+								<DynamicFields>Yes</DynamicFields>
+								<Table>DirPerson</Table>
+								<DataSources />
+								<DerivedDataSources />
+								<Fields />
+								<Ranges />
+							</AxQuerySimpleDerivedDataSource>
+							<AxQuerySimpleDerivedDataSource>
+								<Name>DirPartyTable_DirOrganizationBase</Name>
+								<DynamicFields>Yes</DynamicFields>
+								<Table>DirOrganizationBase</Table>
+								<DataSources />
+								<DerivedDataSources>
+									<AxQuerySimpleDerivedDataSource>
+										<Name>DirPartyTable_OMInternalOrganization</Name>
+										<DynamicFields>Yes</DynamicFields>
+										<Table>OMInternalOrganization</Table>
+										<DataSources />
+										<DerivedDataSources>
+											<AxQuerySimpleDerivedDataSource>
+												<Name>DirPartyTable_OMOperatingUnit</Name>
+												<DynamicFields>Yes</DynamicFields>
+												<Table>OMOperatingUnit</Table>
+												<DataSources />
+												<DerivedDataSources />
+												<Fields />
+												<Ranges />
+											</AxQuerySimpleDerivedDataSource>
+											<AxQuerySimpleDerivedDataSource>
+												<Name>DirPartyTable_CompanyInfo</Name>
+												<DynamicFields>Yes</DynamicFields>
+												<Table>CompanyInfo</Table>
+												<DataSources />
+												<DerivedDataSources />
+												<Fields />
+												<Ranges />
+											</AxQuerySimpleDerivedDataSource>
+											<AxQuerySimpleDerivedDataSource>
+												<Name>DirPartyTable_OMTeam</Name>
+												<DynamicFields>Yes</DynamicFields>
+												<Table>OMTeam</Table>
+												<DataSources />
+												<DerivedDataSources />
+												<Fields />
+												<Ranges />
+											</AxQuerySimpleDerivedDataSource>
+										</DerivedDataSources>
+										<Fields />
+										<Ranges />
+									</AxQuerySimpleDerivedDataSource>
+									<AxQuerySimpleDerivedDataSource>
+										<Name>DirPartyTable_DirOrganization</Name>
+										<DynamicFields>Yes</DynamicFields>
+										<Table>DirOrganization</Table>
+										<DataSources />
+										<DerivedDataSources />
+										<Fields />
+										<Ranges />
+									</AxQuerySimpleDerivedDataSource>
+								</DerivedDataSources>
+								<Fields />
+								<Ranges />
+							</AxQuerySimpleDerivedDataSource>
+						</DerivedDataSources>
+						<Fields />
+						<Ranges />
+						<Relations>
+							<AxQuerySimpleDataSourceRelation>
+								<Name>QueryDataSourceRelation1</Name>
+								<Field>AssociatedPartyNumber</Field>
+								<JoinDataSource>smmContactPersonV2Entity</JoinDataSource>
+								<RelatedField>PartyNumber</RelatedField>
+							</AxQuerySimpleDataSourceRelation>
+						</Relations>
+					</AxQuerySimpleEmbeddedDataSource>
+				</DataSources>
+				<DerivedDataSources />
+				<Fields />
+				<Ranges />
+				<GroupBy />
+				<Having />
+				<OrderBy />
+			</AxQuerySimpleRootDataSource>
+		</DataSources>
+	</ViewMetadata>
+</AxDataEntityView>
