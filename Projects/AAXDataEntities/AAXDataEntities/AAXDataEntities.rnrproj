@@ -40,6 +40,11 @@
       <Name>AAXDataEntities.en-US.label.txt</Name>
       <DependentUpon>AxLabelFile\AAXDataEntities_en-US</DependentUpon>
     </Content>
+    <Content Include="AxDataEntityView\AAXCustomerContactInfoEntity">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactInfoEntity</Name>
+      <Link>Data Entities\AAXCustomerContactInfoEntity</Link>
+    </Content>
     <Content Include="AxDataEntityView\AAXCustomerContactPersonsEntity">
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonsEntity</Name>
@@ -50,6 +55,16 @@
       <Name>AAXDataEntities_en-US</Name>
       <Link>Label Files\AAXDataEntities_en-US</Link>
     </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerContactInfoEntityExport">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactInfoEntityExport</Name>
+      <Link>Security Privileges\AAXCustomerContactInfoEntityExport</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerContactInfoEntityImport">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactInfoEntityImport</Name>
+      <Link>Security Privileges\AAXCustomerContactInfoEntityImport</Link>
+    </Content>
     <Content Include="AxSecurityPrivilege\AAXCustomerContactPersonsEntityExport">
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonsEntityExport</Name>
@@ -59,6 +74,11 @@
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonsEntityImport</Name>
       <Link>Security Privileges\AAXCustomerContactPersonsEntityImport</Link>
+    </Content>
+    <Content Include="AxTable\AAXCustomerContactInfoStaging">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerContactInfoStaging</Name>
+      <Link>Tables\AAXCustomerContactInfoStaging</Link>
     </Content>
     <Content Include="AxTable\AAXCustomerContactPersonsStaging">
       <SubType>Content</SubType>
