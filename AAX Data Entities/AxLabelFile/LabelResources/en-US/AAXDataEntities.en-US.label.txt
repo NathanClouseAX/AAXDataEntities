@@ -3,3 +3,6 @@
 CustomerContactPersons=Customer Contact Persons
 CustomerContactPersonsExport=Customer Contact Persons Export
 CustomerContactPersonsImport=Customer Contact Persons Import
+CustomerContactInfoExport=Customer Contact Information Export
+CustomerContactInfoImport=Customer Contact Information Import
+CustomerContactInfo=Customer Contact Information
