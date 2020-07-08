@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>AAXCustomerContactInfoStaging</Name>
+	<Name>AAXVendorContactInfoStaging</Name>
 	<SourceCode>
+		<Declaration><![CDATA[
+public class AAXVendorContactInfoStaging extends common
+{
+}
+]]></Declaration>
 		<Methods />
 	</SourceCode>
 	<DeveloperDocumentation>@DMF:StagingDeveloperDocumentation</DeveloperDocumentation>
-	<FormRef>CustTable</FormRef>
-	<Label>@AAXDataEntities:CustomerContactInfo</Label>
+	<FormRef>VendTable</FormRef>
+	<Label>@AAXDataEntities:VendorContactInfo</Label>
 	<TableGroup>Staging</TableGroup>
 	<TitleField1>Type</TitleField1>
 	<TitleField2>Locator</TitleField2>
@@ -19,9 +24,6 @@
 			<Name>AutoReport</Name>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Fields>
-				<AxTableFieldGroupField>
-					<DataField>CustomerAccountNumber</DataField>
-				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>Description</DataField>
 				</AxTableFieldGroupField>
@@ -114,13 +116,18 @@
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>CustomerAccountNumber</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>CustAccount</ExtendedDataType>
-			<IsManuallyUpdated>Yes</IsManuallyUpdated>
+			<Name>VendorAccountNumber</Name>
+			<ExtendedDataType>VendAccount</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>VendorDataAreaId</Name>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>DataAreaId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+			<StringSize>4</StringSize>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">
@@ -188,17 +195,6 @@
 			<ExtendedDataType>LogisticsLocationId</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>CustomerDataAreaId</Name>
-			<AllowEdit>No</AllowEdit>
-			<AllowEditOnCreate>No</AllowEditOnCreate>
-			<ExtendedDataType>DataAreaId</ExtendedDataType>
-			<IsManuallyUpdated>Yes</IsManuallyUpdated>
-			<IsSystemGenerated>Yes</IsSystemGenerated>
-			<Mandatory>Yes</Mandatory>
-			<StringSize>4</StringSize>
-		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
@@ -214,10 +210,10 @@
 					<DataField>ExecutionId</DataField>
 				</AxTableIndexField>
 				<AxTableIndexField>
-					<DataField>CustomerAccountNumber</DataField>
+					<DataField>VendorAccountNumber</DataField>
 				</AxTableIndexField>
 				<AxTableIndexField>
-					<DataField>CustomerDataAreaId</DataField>
+					<DataField>VendorDataAreaId</DataField>
 				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>Type</DataField>
@@ -239,22 +235,22 @@
 			<Cardinality>ExactlyOne</Cardinality>
 			<EntityRelationshipRole>@DMF:StagingToDataEntityRelationshipRole</EntityRelationshipRole>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
-			<RelatedTable>AAXCustomerContactInfoEntity</RelatedTable>
+			<RelatedTable>AAXVendorContactInfoEntity</RelatedTable>
 			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
 			<RelationshipType>Link</RelationshipType>
 			<Validate>No</Validate>
 			<Constraints>
 				<AxTableRelationConstraint xmlns=""
 					i:type="AxTableRelationConstraintField">
-					<Name>CustomerAccountNumber</Name>
-					<Field>CustomerAccountNumber</Field>
-					<RelatedField>CustomerAccountNumber</RelatedField>
+					<Name>VendorAccountNumber</Name>
+					<Field>VendorAccountNumber</Field>
+					<RelatedField>VendorAccountNumber</RelatedField>
 				</AxTableRelationConstraint>
 				<AxTableRelationConstraint xmlns=""
 					i:type="AxTableRelationConstraintField">
-					<Name>CustomerDataAreaId</Name>
-					<Field>CustomerDataAreaId</Field>
-					<RelatedField>CustomerDataAreaId</RelatedField>
+					<Name>VendorDataAreaId</Name>
+					<Field>VendorDataAreaId</Field>
+					<RelatedField>VendorDataAreaId</RelatedField>
 				</AxTableRelationConstraint>
 				<AxTableRelationConstraint xmlns=""
 					i:type="AxTableRelationConstraintField">

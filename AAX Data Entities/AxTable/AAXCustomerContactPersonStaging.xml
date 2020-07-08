@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>AAXCustomerContactPersonsStaging</Name>
+	<Name>AAXCustomerContactPersonStaging</Name>
 	<SourceCode>
 		<Methods />
 	</SourceCode>
@@ -17,7 +17,20 @@
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
-			<Fields />
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonName</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>FirstName</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>LastName</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
 		</AxTableFieldGroup>
 		<AxTableFieldGroup>
 			<Name>AutoLookup</Name>
@@ -63,6 +76,17 @@
 	<Fields>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
+			<Name>ElectronicLocationId</Name>
+			<ExtendedDataType>LogisticsLocationId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>PrimaryAddressCountryRegionISOCode</Name>
+			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
+			<Label>@GlobalAddressBook:LogisticsPostalAddressBaseEntity_CountryRegionISO</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
 			<Name>DefinitionGroup</Name>
 			<AllowEdit>No</AllowEdit>
 			<ExtendedDataType>DMFDefinitionGroupName</ExtendedDataType>
@@ -99,6 +123,15 @@
 			<ExtendedDataType>CustAccount</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>CustomerDataAreaId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>DataAreaId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+			<StringSize>4</StringSize>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
@@ -242,11 +275,6 @@
 			<ExtendedDataType>DirNameSequenceDisplayAs</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>ElectronicLocationId</Name>
-			<ExtendedDataType>LogisticsLocationId</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
@@ -530,12 +558,6 @@
 			<ExtendedDataType>LogisticsAddressCountryRegionId</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldString">
-			<Name>PrimaryAddressCountryRegionISOCode</Name>
-			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
-			<Label>@GlobalAddressBook:LogisticsPostalAddressBaseEntity_CountryRegionISO</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
@@ -833,6 +855,12 @@
 				<AxTableIndexField>
 					<DataField>ContactPersonId</DataField>
 				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>CustomerAccountNumber</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>CustomerDataAreaId</DataField>
+				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>
 	</Indexes>
@@ -844,7 +872,7 @@
 			<Cardinality>ExactlyOne</Cardinality>
 			<EntityRelationshipRole>@DMF:StagingToDataEntityRelationshipRole</EntityRelationshipRole>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
-			<RelatedTable>AAXCustomerContactPersonsEntity</RelatedTable>
+			<RelatedTable>AAXCustomerContactPersonEntity</RelatedTable>
 			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
 			<RelationshipType>Link</RelationshipType>
 			<Validate>No</Validate>
@@ -854,6 +882,18 @@
 					<Name>ContactPersonId</Name>
 					<Field>ContactPersonId</Field>
 					<RelatedField>ContactPersonId</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>CustomerAccountNumber</Name>
+					<Field>CustomerAccountNumber</Field>
+					<RelatedField>CustomerAccountNumber</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>CustomerDataAreaId</Name>
+					<Field>CustomerDataAreaId</Field>
+					<RelatedField>CustomerDataAreaId</RelatedField>
 				</AxTableRelationConstraint>
 			</Constraints>
 		</AxTableRelation>

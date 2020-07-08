@@ -12,6 +12,10 @@
     <ProjectGuid>{1f0bbdef-6f74-463b-b308-5089c6519423}</ProjectGuid>
     <Name>AAXDataEntities</Name>
     <RootNamespace>AAXDataEntities</RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <StartupType>
+    </StartupType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -45,10 +49,20 @@
       <Name>AAXCustomerContactInfoEntity</Name>
       <Link>Data Entities\AAXCustomerContactInfoEntity</Link>
     </Content>
-    <Content Include="AxDataEntityView\AAXCustomerContactPersonsEntity">
+    <Content Include="AxDataEntityView\AAXCustomerContactPersonEntity">
       <SubType>Content</SubType>
-      <Name>AAXCustomerContactPersonsEntity</Name>
-      <Link>Data Entities\AAXCustomerContactPersonsEntity</Link>
+      <Name>AAXCustomerContactPersonEntity</Name>
+      <Link>Data Entities\AAXCustomerContactPersonEntity</Link>
+    </Content>
+    <Content Include="AxDataEntityView\AAXVendorContactInfoEntity">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactInfoEntity</Name>
+      <Link>Data Entities\AAXVendorContactInfoEntity</Link>
+    </Content>
+    <Content Include="AxDataEntityView\AAXVendorContactPersonEntity">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactPersonEntity</Name>
+      <Link>Data Entities\AAXVendorContactPersonEntity</Link>
     </Content>
     <Content Include="AxLabelFile\AAXDataEntities_en-US">
       <SubType>Content</SubType>
@@ -75,15 +89,45 @@
       <Name>AAXCustomerContactPersonsEntityImport</Name>
       <Link>Security Privileges\AAXCustomerContactPersonsEntityImport</Link>
     </Content>
+    <Content Include="AxSecurityPrivilege\AAXVendorContactInfoEntityExport">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactInfoEntityExport</Name>
+      <Link>Security Privileges\AAXVendorContactInfoEntityExport</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXVendorContactInfoEntityImport">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactInfoEntityImport</Name>
+      <Link>Security Privileges\AAXVendorContactInfoEntityImport</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXVendorContactPersonsEntityExport">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactPersonsEntityExport</Name>
+      <Link>Security Privileges\AAXVendorContactPersonsEntityExport</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXVendorContactPersonsEntityImport">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactPersonsEntityImport</Name>
+      <Link>Security Privileges\AAXVendorContactPersonsEntityImport</Link>
+    </Content>
     <Content Include="AxTable\AAXCustomerContactInfoStaging">
       <SubType>Content</SubType>
       <Name>AAXCustomerContactInfoStaging</Name>
       <Link>Tables\AAXCustomerContactInfoStaging</Link>
     </Content>
-    <Content Include="AxTable\AAXCustomerContactPersonsStaging">
+    <Content Include="AxTable\AAXCustomerContactPersonStaging">
       <SubType>Content</SubType>
-      <Name>AAXCustomerContactPersonsStaging</Name>
-      <Link>Tables\AAXCustomerContactPersonsStaging</Link>
+      <Name>AAXCustomerContactPersonStaging</Name>
+      <Link>Tables\AAXCustomerContactPersonStaging</Link>
+    </Content>
+    <Content Include="AxTable\AAXVendorContactInfoStaging">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactInfoStaging</Name>
+      <Link>Tables\AAXVendorContactInfoStaging</Link>
+    </Content>
+    <Content Include="AxTable\AAXVendorContactPersonStaging">
+      <SubType>Content</SubType>
+      <Name>AAXVendorContactPersonStaging</Name>
+      <Link>Tables\AAXVendorContactPersonStaging</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
