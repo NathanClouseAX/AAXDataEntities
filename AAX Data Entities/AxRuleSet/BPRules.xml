@@ -411,9 +411,6 @@
 			<Moniker>BPErrorTableFieldLabelAndHelpAreEqual</Moniker>
 		</Rule>
 		<Rule>
-			<Moniker>BPErrorEDTNotMigrated</Moniker>
-		</Rule>
-		<Rule>
 			<Moniker>BPErrorFilterPropertiesControlsCannotHaveOverrides</Moniker>
 		</Rule>
 		<Rule>
@@ -1153,9 +1150,6 @@
 		</Rule>
 		<Rule>
 			<Moniker>BPUpgradeCodeFormRunDeprecatedApi</Moniker>
-		</Rule>
-		<Rule>
-			<Moniker>BPUpgradeMetadataEDTRelation</Moniker>
 		</Rule>
 		<Rule>
 			<Moniker>BPUpgradeCodeFormDataSourceDeprecatedApi</Moniker>

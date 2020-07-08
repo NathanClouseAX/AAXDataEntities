@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxDataEntityView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>AAXCustomerContactPersonsEntity</Name>
+	<Name>AAXVendorContactPersonEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 /// <summary>
-/// The AAXCustomerContactInfoEntity provides a entity to use for import/export which does not require
-/// the knowledge of a Customer party number.
+/// The AAXVendorContactInfoEntity provides a entity to use for import/export which does not require
+/// the knowledge of a vendor party number.
 /// </summary>
-public class AAXCustomerContactPersonsEntity extends common
+public class AAXVendorContactPersonEntity extends common
 {
 
 }
@@ -21,15 +21,11 @@ public class AAXCustomerContactPersonsEntity extends common
     /// </summary>
     /// <param name = "_entityCtx">The context of the current operation</param>
     /// <param name = "_dataSourceCtx">The context of the current data entity</param>
-    /// <remarks>
-    /// </remarks>
     public void initializeEntityDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
     {
        
-        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXCustomerContactPersonsEntity, smmContactPersonV2Entity))
+        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXVendorContactPersonEntity, smmContactPersonV2Entity))
         {
-            this.skipDataSourceValidateField(fieldNum(AAXCustomerContactPersonsEntity, ContactPersonId), true);
-
             this.setPartyNumber();
 
             if (_entityCtx.getDatabaseOperation() == DataEntityDatabaseOperation::Update)
@@ -44,25 +40,16 @@ public class AAXCustomerContactPersonsEntity extends common
 ]]></Source>
 			</Method>
 			<Method>
-				<Name>setPartyNumber</Name>
+				<Name>persistEntity</Name>
 				<Source><![CDATA[
     /// <summary>
-    /// The setPartyNumberAndLocationId method sets the party number and location if needed
+    ///
     /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public void setPartyNumber()
+    /// <param name = "_entityCtx"></param>
+    public void persistEntity(DataEntityRuntimeContext _entityCtx)
     {
-        CustTable custTable = CustTable::find(this.CustomerAccountNumber);
-        DirPartyNumber partyNumber = DirPartyTable::findRec(custTable.Party).PartyNumber;
-        this.AssociatedPartyNumber = partyNumber;
-        
-        if (this.PrimaryAddressLocationId == '')
-        {
-            DirPartyLocation dirPartyLocation = DirPartyLocation::findOrCreate(custTable.party, 0);
-            this.PrimaryAddressLocationId = LogisticsLocation::find(dirPartyLocation.Location).LocationId;
-        }
-        
+        this.skipDataSourceValidateField(fieldNum(smmContactPersonV2Entity, DisplayNameSequencePatternName), true);
+        super(_entityCtx);
     }
 
 ]]></Source>
@@ -70,16 +57,46 @@ public class AAXCustomerContactPersonsEntity extends common
 			<Method>
 				<Name>mapEntityToDataSource</Name>
 				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name = "_entityCtx"></param>
+    /// <param name = "_dataSourceCtx"></param>
     public void mapEntityToDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
     {
 
-        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXCustomerContactPersonsEntity, smmContactPersonV2Entity))
+        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXVendorContactPersonEntity, smmContactPersonV2Entity))
         {
             this.setPartyNumber();
         }
 
         super(_entityCtx, _dataSourceCtx);
 
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setPartyNumber</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// The setPartyNumberAndLocationId method sets the party number and location if needed
+    /// </summary>
+    public void setPartyNumber()
+    {
+        VendTable vendTable = VendTable::find(this.VendorAccountNumber);
+
+        DirPartyNumber partyNumber = DirPartyTable::findRec(vendtable.Party).PartyNumber;
+
+        this.AssociatedPartyNumber = partyNumber;
+
+        
+        if (this.PrimaryAddressLocationId == '')
+        {
+            DirPartyLocation dirPartyLocation = DirPartyLocation::findOrCreate(vendTable.party, 0);
+            this.PrimaryAddressLocationId = LogisticsLocation::find(dirPartyLocation.Location).LocationId;
+        }
+        
     }
 
 ]]></Source>
@@ -93,8 +110,6 @@ public class AAXCustomerContactPersonsEntity extends common
     /// <returns>
     /// A DirPartyContactEntity matching the key fields if found
     /// </returns>
-    /// <remarks>
-    /// </remarks>
     private smmContactPersonV2Entity resolveContactPersonEntity()
     {
         smmContactPersonV2Entity contactPersonEntity;
@@ -109,12 +124,12 @@ public class AAXCustomerContactPersonsEntity extends common
 			</Method>
 		</Methods>
 	</SourceCode>
-	<Label>@AAXDataEntities:CustomerContactPersons</Label>
+	<Label>@AAXDataEntities:VendorContactPersons</Label>
 	<Tags>Vendor</Tags>
 	<DataManagementEnabled>Yes</DataManagementEnabled>
-	<DataManagementStagingTable>AAXCustomerContactPersonsStaging</DataManagementStagingTable>
-	<Modules>AccountsReceivable</Modules>
-	<PrimaryCompanyContext>CustomerDataAreaId</PrimaryCompanyContext>
+	<DataManagementStagingTable>AAXVendorContactPersonStaging</DataManagementStagingTable>
+	<Modules>AccountsPayable</Modules>
+	<PrimaryCompanyContext>VendorDataAreaId</PrimaryCompanyContext>
 	<PrimaryKey>EntityKey</PrimaryKey>
 	<DeleteActions />
 	<FieldGroups>
@@ -122,19 +137,19 @@ public class AAXCustomerContactPersonsEntity extends common
 			<Name>AutoReport</Name>
 			<Fields>
 				<AxTableFieldGroupField>
+					<DataField>ContactPersonId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonPartyType</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>ContactPersonName</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
 					<DataField>FirstName</DataField>
 				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>LastName</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>ContactPersonResponsiblePersonnelNumber</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>PrimaryAddressDescription</DataField>
-				</AxTableFieldGroupField>
-				<AxTableFieldGroupField>
-					<DataField>ContactPersonPartyType</DataField>
 				</AxTableFieldGroupField>
 			</Fields>
 		</AxTableFieldGroup>
@@ -159,17 +174,16 @@ public class AAXCustomerContactPersonsEntity extends common
 	<Fields>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>CustomerAccountNumber</Name>
+			<Name>VendorAccountNumber</Name>
 			<DataField>AccountNum</DataField>
-			<DataSource>CustTable</DataSource>
+			<DataSource>VendTable</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>CustomerDataAreaId</Name>
-			<AccessModifier>Internal</AccessModifier>
+			<Name>VendorDataAreaId</Name>
 			<AllowEdit>No</AllowEdit>
 			<DataField>DataAreaId</DataField>
-			<DataSource>CustTable</DataSource>
+			<DataSource>VendTable</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
@@ -921,20 +935,35 @@ public class AAXCustomerContactPersonsEntity extends common
 				<AxDataEntityViewKeyField>
 					<DataField>ContactPersonId</DataField>
 				</AxDataEntityViewKeyField>
+				<AxDataEntityViewKeyField>
+					<DataField>VendorAccountNumber</DataField>
+				</AxDataEntityViewKeyField>
+				<AxDataEntityViewKeyField>
+					<DataField>VendorDataAreaId</DataField>
+				</AxDataEntityViewKeyField>
 			</Fields>
 		</AxDataEntityViewKey>
 	</Keys>
 	<Mappings />
 	<Ranges />
 	<Relations>
-		<AxDataEntityViewRelation xmlns=""
-			i:type="AxDataEntityViewRelationForeignKey">
-			<Name>CustTable</Name>
+		<AxDataEntityViewRelation>
+			<Name>VendTable</Name>
 			<Cardinality>ZeroMore</Cardinality>
-			<RelatedDataEntity>CustTable</RelatedDataEntity>
+			<RelatedDataEntity>VendVendorV2Entity</RelatedDataEntity>
 			<RelatedDataEntityCardinality>ExactlyOne</RelatedDataEntityCardinality>
+			<RelatedDataEntityRole>Vendor</RelatedDataEntityRole>
 			<RelationshipType>Association</RelationshipType>
-			<Constraints />
+			<Role>Contacts</Role>
+			<UseDefaultRoleNames>No</UseDefaultRoleNames>
+			<Constraints>
+				<AxDataEntityViewRelationConstraint xmlns=""
+					i:type="AxDataEntityViewRelationConstraintField">
+					<Name>RelationConstraintField1</Name>
+					<Field>VendorAccountNumber</Field>
+					<RelatedField>VendorAccountNumber</RelatedField>
+				</AxDataEntityViewRelationConstraint>
+			</Constraints>
 		</AxDataEntityViewRelation>
 	</Relations>
 	<StateMachines />
@@ -966,10 +995,10 @@ public class Metadata extends QueryRun
 						<Table>DirPartyTable</Table>
 						<DataSources>
 							<AxQuerySimpleEmbeddedDataSource>
-								<Name>CustTable</Name>
+								<Name>VendTable</Name>
 								<DynamicFields>Yes</DynamicFields>
 								<IsReadOnly>Yes</IsReadOnly>
-								<Table>CustTable</Table>
+								<Table>VendTable</Table>
 								<DataSources />
 								<DerivedDataSources />
 								<Fields />

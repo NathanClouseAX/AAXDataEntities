@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxDataEntityView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>AAXCustomerContactInfoEntity</Name>
+	<Name>AAXVendorContactInfoEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
 /// <summary>
-/// The AAXCustomerContactInfoEntity provides a entity to use for import/export which does not require
-/// the knowledge of a customer party number.
+/// The AAXVendorContactInfoEntity provides a entity to use for import/export which does not require
+/// the knowledge of a vendor party number.
 /// </summary>
-public class AAXCustomerContactInfoEntity extends common
+public class AAXVendorContactInfoEntity extends common
 {
 }
 ]]></Declaration>
@@ -20,14 +20,11 @@ public class AAXCustomerContactInfoEntity extends common
     /// </summary>
     /// <param name = "_entityCtx">The context of the current operation</param>
     /// <param name = "_dataSourceCtx">The context of the current data entity</param>
-    /// <remarks>
-    /// 
-    /// </remarks>
     public void initializeEntityDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
     {
         super(_entityCtx, _dataSourceCtx);
 
-        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXCustomerContactInfoEntity, DirPartyContactEntity))
+        if (_dataSourceCtx.name() == dataEntityDataSourceStr(AAXVendorContactInfoEntity, DirPartyContactEntity))
         {
             this.setPartyNumberAndLocationId();
 
@@ -46,20 +43,36 @@ public class AAXCustomerContactInfoEntity extends common
     /// <summary>
     /// The setPartyNumberAndLocationId method sets the party number and location if needed
     /// </summary>
-    /// <remarks>
-    /// 
-    /// </remarks>
     private void setPartyNumberAndLocationId()
     {
-        CustTable custTable = CustTable::find(this.CustomerAccountNumber);
+        DirPartyTable DirPartyTable;
 
-        DirPartyNumber partyNumber = DirPartyTable::findRec(custTable.Party).PartyNumber;
+        VendTable vendTable = VendTable::find(this.VendorAccountNumber); 
+
+        DirPartyNumber partyNumber = DirPartyTable::findRec(vendtable.Party).PartyNumber;
+
+        if(!partyNumber)
+        {
+            while select * from DirPartyTable where DirPartyTable.KnownAs == this.VendorAccountNumber
+            {
+                if(DirPartyTable)
+                {
+                    select * from vendTable where VendTable.Party == DirPartyTable.RecId;
+                    if(VendTable)
+                    {
+                        partyNumber = DirPartyTable.PartyNumber;
+                        VendTable = VendTable::findByPartyRecId(DirPartyTable.RecId);
+                        break;
+                    }
+                }
+            }
+        }
 
         this.PartyNumber = partyNumber;
 
         if (this.LocationId == '')
         {
-            DirPartyLocation dirPartyLocation = DirPartyLocation::findOrCreate(custTable.party, 0);
+            DirPartyLocation dirPartyLocation = DirPartyLocation::findOrCreate(vendTable.party, 0);
             this.LocationId = LogisticsLocation::find(dirPartyLocation.Location).LocationId;
         }
     }
@@ -75,9 +88,6 @@ public class AAXCustomerContactInfoEntity extends common
     /// <returns>
     /// A DirPartyContactEntity matching the key fields if found
     /// </returns>
-    /// <remarks>
-    /// 
-    /// </remarks>
     private DirPartyContactEntity resolveDirPartyContactEntity()
     {
         DirPartyContactEntity contactEntity;
@@ -96,25 +106,22 @@ public class AAXCustomerContactInfoEntity extends common
 			</Method>
 		</Methods>
 	</SourceCode>
-	<FormRef>CustTable</FormRef>
-	<Label>@AAXDataEntities:CustomerContactInfo</Label>
-	<Tags>Customer</Tags>
+	<FormRef>VendTable</FormRef>
+	<Label>@AAXDataEntities:VendorContactInfo</Label>
+	<Tags>Vendor</Tags>
 	<DataManagementEnabled>Yes</DataManagementEnabled>
-	<DataManagementStagingTable>AAXCustomerContactInfoStaging</DataManagementStagingTable>
+	<DataManagementStagingTable>AAXVendorContactInfoStaging</DataManagementStagingTable>
 	<IsPublic>Yes</IsPublic>
-	<Modules>AccountsReceivable</Modules>
-	<PrimaryCompanyContext>CustomerDataAreaId</PrimaryCompanyContext>
+	<Modules>AccountsPayable</Modules>
+	<PrimaryCompanyContext>VendorDataAreaId</PrimaryCompanyContext>
 	<PrimaryKey>EntityKey</PrimaryKey>
-	<PublicCollectionName>CustomerContactInfos</PublicCollectionName>
-	<PublicEntityName>CustomerContactInfo</PublicEntityName>
+	<PublicCollectionName>VendorContactInfoRecords</PublicCollectionName>
+	<PublicEntityName>VendorContactInfoRecord</PublicEntityName>
 	<DeleteActions />
 	<FieldGroups>
 		<AxTableFieldGroup>
 			<Name>AutoReport</Name>
 			<Fields>
-				<AxTableFieldGroupField>
-					<DataField>CustomerAccountNumber</DataField>
-				</AxTableFieldGroupField>
 				<AxTableFieldGroupField>
 					<DataField>Description</DataField>
 				</AxTableFieldGroupField>
@@ -153,16 +160,17 @@ public class AAXCustomerContactInfoEntity extends common
 	<Fields>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>CustomerAccountNumber</Name>
+			<Name>VendorAccountNumber</Name>
+			<AllowEdit>Yes</AllowEdit>
 			<DataField>AccountNum</DataField>
-			<DataSource>CustTable</DataSource>
+			<DataSource>VendTable</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>CustomerDataAreaId</Name>
-			<AllowEdit>No</AllowEdit>
+			<Name>VendorDataAreaId</Name>
+			<AllowEdit>Yes</AllowEdit>
 			<DataField>DataAreaId</DataField>
-			<DataSource>CustTable</DataSource>
+			<DataSource>VendTable</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
@@ -239,10 +247,10 @@ public class AAXCustomerContactInfoEntity extends common
 			<Name>EntityKey</Name>
 			<Fields>
 				<AxDataEntityViewKeyField>
-					<DataField>CustomerAccountNumber</DataField>
+					<DataField>VendorAccountNumber</DataField>
 				</AxDataEntityViewKeyField>
 				<AxDataEntityViewKeyField>
-					<DataField>CustomerDataAreaId</DataField>
+					<DataField>VendorDataAreaId</DataField>
 				</AxDataEntityViewKeyField>
 				<AxDataEntityViewKeyField>
 					<DataField>Type</DataField>
@@ -258,25 +266,7 @@ public class AAXCustomerContactInfoEntity extends common
 	</Keys>
 	<Mappings />
 	<Ranges />
-	<Relations>
-		<AxDataEntityViewRelation>
-			<Name>CustTable</Name>
-			<Cardinality>ZeroMore</Cardinality>
-			<RelatedDataEntity>CustCustomerV3Entity</RelatedDataEntity>
-			<RelatedDataEntityCardinality>ExactlyOne</RelatedDataEntityCardinality>
-			<RelatedDataEntityRole>Customer</RelatedDataEntityRole>
-			<RelationshipType>Association</RelationshipType>
-			<Role>Contacts</Role>
-			<Constraints>
-				<AxDataEntityViewRelationConstraint xmlns=""
-					i:type="AxDataEntityViewRelationConstraintField">
-					<Name>RelationConstraintField1</Name>
-					<Field>CustomerAccountNumber</Field>
-					<RelatedField>CustomerAccount</RelatedField>
-				</AxDataEntityViewRelationConstraint>
-			</Constraints>
-		</AxDataEntityViewRelation>
-	</Relations>
+	<Relations />
 	<StateMachines />
 	<ViewMetadata>
 		<Name>Metadata</Name>
@@ -306,10 +296,10 @@ public class Metadata extends QueryRun
 						<Table>DirPartyTable</Table>
 						<DataSources>
 							<AxQuerySimpleEmbeddedDataSource>
-								<Name>CustTable</Name>
+								<Name>VendTable</Name>
 								<DynamicFields>Yes</DynamicFields>
 								<IsReadOnly>Yes</IsReadOnly>
-								<Table>CustTable</Table>
+								<Table>VendTable</Table>
 								<DataSources />
 								<DerivedDataSources />
 								<Fields />
@@ -347,9 +337,9 @@ public class Metadata extends QueryRun
 										<DataSources />
 										<DerivedDataSources>
 											<AxQuerySimpleDerivedDataSource>
-												<Name>DirPartyTable_OMTeam</Name>
+												<Name>DirPartyTable_OMOperatingUnit</Name>
 												<DynamicFields>Yes</DynamicFields>
-												<Table>OMTeam</Table>
+												<Table>OMOperatingUnit</Table>
 												<DataSources />
 												<DerivedDataSources />
 												<Fields />
@@ -365,9 +355,9 @@ public class Metadata extends QueryRun
 												<Ranges />
 											</AxQuerySimpleDerivedDataSource>
 											<AxQuerySimpleDerivedDataSource>
-												<Name>DirPartyTable_OMOperatingUnit</Name>
+												<Name>DirPartyTable_OMTeam</Name>
 												<DynamicFields>Yes</DynamicFields>
-												<Table>OMOperatingUnit</Table>
+												<Table>OMTeam</Table>
 												<DataSources />
 												<DerivedDataSources />
 												<Fields />

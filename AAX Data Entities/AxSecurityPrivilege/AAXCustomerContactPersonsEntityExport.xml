@@ -7,7 +7,7 @@
 			<Grant>
 				<Read>Allow</Read>
 			</Grant>
-			<Name>AAXCustomerContactPersonsEntity</Name>
+			<Name>AAXCustomerContactPersonEntity</Name>
 			<Fields />
 			<Methods />
 		</AxSecurityDataEntityPermission>

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxSecurityPrivilege xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>AAXCustomerContactPersonsEntityImport</Name>
-	<Label>@AAXDataEntities:CustomerContactPersonsImport</Label>
+	<Name>AAXVendorContactInfoEntityExport</Name>
+	<Label>@AAXDataEntities:VendorContactInfoExport</Label>
 	<DataEntityPermissions>
 		<AxSecurityDataEntityPermission>
 			<Grant>
-				<Correct>Allow</Correct>
-				<Create>Allow</Create>
 				<Read>Allow</Read>
-				<Update>Allow</Update>
 			</Grant>
-			<Name>AAXCustomerContactPersonEntity</Name>
+			<Name>AAXVendorContactInfoEntity</Name>
 			<Fields />
 			<Methods />
 		</AxSecurityDataEntityPermission>
