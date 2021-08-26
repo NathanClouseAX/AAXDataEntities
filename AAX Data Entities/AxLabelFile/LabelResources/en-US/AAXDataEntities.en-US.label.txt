@@ -12,3 +12,4 @@ VendorContactPersonsExport=Vendor Contact Persons Export
 VendorContactPersonsImport=Vendor Contact Persons Import
 VendorContactInfoExport=Vendor Contact Information Export
 VendorContactInfoImport=Vendor Contact Information Import
+CustomerPackingSlipHeaderAndLines=Customer Packing Slip Header and Lines

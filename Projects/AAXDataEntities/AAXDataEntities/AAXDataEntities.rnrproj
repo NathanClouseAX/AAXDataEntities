@@ -12,10 +12,8 @@
     <ProjectGuid>{1f0bbdef-6f74-463b-b308-5089c6519423}</ProjectGuid>
     <Name>AAXDataEntities</Name>
     <RootNamespace>AAXDataEntities</RootNamespace>
-    <StartupObject>
-    </StartupObject>
-    <StartupType>
-    </StartupType>
+    <StartupObject>RunnableClass1</StartupObject>
+    <StartupType>Class</StartupType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -33,6 +31,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="AxCompositeDataEntityView\" />
+    <Folder Include="Classes\" />
     <Folder Include="Data Entities\" />
     <Folder Include="Label Files\" />
     <Folder Include="Security Privileges\" />
@@ -44,6 +44,11 @@
       <Name>AAXDataEntities.en-US.label.txt</Name>
       <DependentUpon>AxLabelFile\AAXDataEntities_en-US</DependentUpon>
     </Content>
+    <Content Include="AxCompositeDataEntityView\AAXCustomerPackingSlipsEntity">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipsEntity</Name>
+      <Link>AxCompositeDataEntityView\AAXCustomerPackingSlipsEntity</Link>
+    </Content>
     <Content Include="AxDataEntityView\AAXCustomerContactInfoEntity">
       <SubType>Content</SubType>
       <Name>AAXCustomerContactInfoEntity</Name>
@@ -53,6 +58,16 @@
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonEntity</Name>
       <Link>Data Entities\AAXCustomerContactPersonEntity</Link>
+    </Content>
+    <Content Include="AxDataEntityView\AAXCustomerPackingSlipJournalHeaderEntity">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalHeaderEntity</Name>
+      <Link>Data Entities\AAXCustomerPackingSlipJournalHeaderEntity</Link>
+    </Content>
+    <Content Include="AxDataEntityView\AAXCustomerPackingSlipJournalLinesEntity">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalLinesEntity</Name>
+      <Link>Data Entities\AAXCustomerPackingSlipJournalLinesEntity</Link>
     </Content>
     <Content Include="AxDataEntityView\AAXVendorContactInfoEntity">
       <SubType>Content</SubType>
@@ -89,6 +104,26 @@
       <Name>AAXCustomerContactPersonsEntityImport</Name>
       <Link>Security Privileges\AAXCustomerContactPersonsEntityImport</Link>
     </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerPackingSlipJournalHeaderEntityMaintain">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalHeaderEntityMaintain</Name>
+      <Link>Security Privileges\AAXCustomerPackingSlipJournalHeaderEntityMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerPackingSlipJournalHeaderEntityView">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalHeaderEntityView</Name>
+      <Link>Security Privileges\AAXCustomerPackingSlipJournalHeaderEntityView</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerPackingSlipJournalLinesEntityMaintain">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalLinesEntityMaintain</Name>
+      <Link>Security Privileges\AAXCustomerPackingSlipJournalLinesEntityMaintain</Link>
+    </Content>
+    <Content Include="AxSecurityPrivilege\AAXCustomerPackingSlipJournalLinesEntityView">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalLinesEntityView</Name>
+      <Link>Security Privileges\AAXCustomerPackingSlipJournalLinesEntityView</Link>
+    </Content>
     <Content Include="AxSecurityPrivilege\AAXVendorContactInfoEntityExport">
       <SubType>Content</SubType>
       <Name>AAXVendorContactInfoEntityExport</Name>
@@ -118,6 +153,16 @@
       <SubType>Content</SubType>
       <Name>AAXCustomerContactPersonStaging</Name>
       <Link>Tables\AAXCustomerContactPersonStaging</Link>
+    </Content>
+    <Content Include="AxTable\AAXCustomerPackingSlipJournalHeaderStaging">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalHeaderStaging</Name>
+      <Link>Tables\AAXCustomerPackingSlipJournalHeaderStaging</Link>
+    </Content>
+    <Content Include="AxTable\AAXCustomerPackingSlipJournalLinesStaging">
+      <SubType>Content</SubType>
+      <Name>AAXCustomerPackingSlipJournalLinesStaging</Name>
+      <Link>Tables\AAXCustomerPackingSlipJournalLinesStaging</Link>
     </Content>
     <Content Include="AxTable\AAXVendorContactInfoStaging">
       <SubType>Content</SubType>

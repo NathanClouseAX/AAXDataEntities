@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxCompositeDataEntityView xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AAXCustomerPackingSlipsEntity</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[CompositeDataEntityView]
+public class AAXCustomerPackingSlipsEntity
+{
+}
+]]></Declaration>
+		<Methods />
+	</SourceCode>
+	<Label>@AAXDataEntities:CustomerPackingSlipHeaderAndLines</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<EntityCategory>Transaction</EntityCategory>
+	<IsReadOnly>Yes</IsReadOnly>
+	<RootDataEntities>
+		<AxDataEntityViewReferenceRoot>
+			<Name>AAXCustomerPackingSlipJournalHeaderEntity</Name>
+			<DataEntity>AAXCustomerPackingSlipJournalHeaderEntity</DataEntity>
+			<EmbeddedDataEntities>
+				<AxDataEntityViewReferenceEmbedded>
+					<Name>AAXCustomerPackingSlipJournalLinesEntity</Name>
+					<DataEntity>AAXCustomerPackingSlipJournalLinesEntity</DataEntity>
+					<EmbeddedDataEntities />
+					<Relation>AAXCustomerPackingSlipJournalHeaderEntity</Relation>
+				</AxDataEntityViewReferenceEmbedded>
+			</EmbeddedDataEntities>
+		</AxDataEntityViewReferenceRoot>
+	</RootDataEntities>
+</AxCompositeDataEntityView>

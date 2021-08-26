@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "AAXDataEntities (USR) [AAX Data Entities]", "AAXDataEntities\AAXDataEntities.rnrproj", "{1F0BBDEF-6F74-463B-B308-5089C6519423}"
 EndProject
@@ -15,5 +15,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BA2CF40-07C7-4C44-AA76-6D4E9ADD1077}
 	EndGlobalSection
 EndGlobal
