@@ -5,9 +5,8 @@
 		<Methods />
 	</SourceCode>
 	<ConfigurationKey>LedgerBasic</ConfigurationKey>
-	<CountryRegionCodes>BR</CountryRegionCodes>
 	<DeveloperDocumentation>@DMF:StagingDeveloperDocumentation</DeveloperDocumentation>
-	<Label>@GLS4170035</Label>
+	<Label>@SYS10319</Label>
 	<TableGroup>Staging</TableGroup>
 	<TitleField1>PackingSlipId</TitleField1>
 	<TitleField2>InvoiceAccount</TitleField2>
@@ -74,16 +73,6 @@
 		</AxTableFieldGroup>
 	</FieldGroups>
 	<Fields>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>RowId</Name>
-			<AssetClassification>System Metadata</AssetClassification>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>ParentRowId</Name>
-			<AssetClassification>System Metadata</AssetClassification>
-		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>DefinitionGroup</Name>
@@ -195,19 +184,19 @@
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>DlvMode</Name>
+			<Name>DeliveryModeCode</Name>
 			<ExtendedDataType>CustDlvModeId</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>DlvReason</Name>
+			<Name>DeliveryReasonId</Name>
 			<ExtendedDataType>DlvReasonId</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>DlvTerm</Name>
+			<Name>DeliveryTermsId</Name>
 			<ExtendedDataType>CustDlvTermId</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Label>@SYS5280</Label>
@@ -283,12 +272,6 @@
 			<ExtendedDataType>CustInvoiceAccount</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldInt64">
-			<Name>InvoicePostalAddress</Name>
-			<ExtendedDataType>LogisticsPostalAddressRecId</ExtendedDataType>
-			<IsSystemGenerated>Yes</IsSystemGenerated>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
@@ -373,14 +356,6 @@
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">
-			<Name>PrintBlankDate_LT</Name>
-			<CountryRegionCodes>LT,LV</CountryRegionCodes>
-			<ExtendedDataType>LtPrintBlankDate</ExtendedDataType>
-			<IsSystemGenerated>Yes</IsSystemGenerated>
-			<EnumType>NoYes</EnumType>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldEnum">
 			<Name>Printed</Name>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Label>@SYS14358</Label>
@@ -426,14 +401,14 @@
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
-			<Name>SalesId</Name>
+			<Name>SalesOrderNumber</Name>
 			<ExtendedDataType>SalesIdBase</ExtendedDataType>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldEnum">
-			<Name>SalesType</Name>
+			<Name>SalesOrderType</Name>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<EnumType>SalesType</EnumType>
 		</AxTableField>
@@ -545,13 +520,150 @@
 			<Label>@Ledger:DimensionMainAccountValue</Label>
 			<StringSize>30</StringSize>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressCity</Name>
+			<ExtendedDataType>LogisticsAddressCityName</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressCountryRegionId</Name>
+			<ExtendedDataType>LogisticsAddressCountryRegionId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressCountryRegionISOCode</Name>
+			<ExtendedDataType>LogisticsAddressCountryRegionISOCode</ExtendedDataType>
+			<Label>@GlobalAddressBook:LogisticsPostalAddressBaseEntity_CountryRegionISO</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressCountyId</Name>
+			<ExtendedDataType>LogisticsAddressCountyId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressDescription</Name>
+			<ExtendedDataType>Description</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+			<Label>@SYS335041</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressDistrictName</Name>
+			<ExtendedDataType>LogisticsAddressDistrictName</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressDunsNumber</Name>
+			<ExtendedDataType>LogisticsDunsNumber</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>IsDeliveryAddressPrivate</Name>
+			<ExtendedDataType>LogisticsIsPrivate</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+			<Label>@SCM:IsDeliveryAddressPrivate</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>DeliveryAddressLatitude</Name>
+			<ExtendedDataType>LogisticsAddressLatitude</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressLocationId</Name>
+			<ExtendedDataType>LogisticsLocationId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>DeliveryAddressLongitude</Name>
+			<ExtendedDataType>LogisticsAddressLongitude</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressPostBox</Name>
+			<ExtendedDataType>LogisticsAddressPostBox</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressStateId</Name>
+			<ExtendedDataType>LogisticsAddressStateId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressStreet</Name>
+			<ExtendedDataType>LogisticsAddressStreet</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressStreetNumber</Name>
+			<ExtendedDataType>LogisticsAddressStreetNumber</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>DeliveryAddressTimeZone</Name>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+			<Label>@SYS102501</Label>
+			<EnumType>Timezone</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressZipCode</Name>
+			<ExtendedDataType>LogisticsAddressZipCodeId</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressCityInKana</Name>
+			<ExtendedDataType>AssetCityKana_JP</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>DeliveryAddressStreetInKana</Name>
+			<ExtendedDataType>AssetStreetKana_JP</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>ValidTo</Name>
+			<ExtendedDataType>ExpirationDateTime</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>ValidFrom</Name>
+			<ExtendedDataType>EffectiveDateTime</ExtendedDataType>
+			<IsSystemGenerated>Yes</IsSystemGenerated>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt">
+			<Name>RowId</Name>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt">
+			<Name>ParentRowId</Name>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes>
 		<AxTableIndex>
 			<Name>StagingIdx</Name>
 			<AlternateKey>Yes</AlternateKey>
-			<IsManuallyUpdated>Yes</IsManuallyUpdated>
 			<IsSystemGenerated>Yes</IsSystemGenerated>
 			<Fields>
 				<AxTableIndexField>
@@ -566,20 +678,20 @@
 			</Fields>
 		</AxTableIndex>
 		<AxTableIndex>
-			<Name>RowIdx</Name>
+			<Name>CompositeIdx</Name>
 			<AllowDuplicates>Yes</AllowDuplicates>
 			<Fields>
-				<AxTableIndexField>
-					<DataField>DefinitionGroup</DataField>
-				</AxTableIndexField>
-				<AxTableIndexField>
-					<DataField>ExecutionId</DataField>
-				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>RowId</DataField>
 				</AxTableIndexField>
 				<AxTableIndexField>
 					<DataField>ParentRowId</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>ExecutionId</DataField>
+				</AxTableIndexField>
+				<AxTableIndexField>
+					<DataField>DefinitionGroup</DataField>
 				</AxTableIndexField>
 			</Fields>
 		</AxTableIndex>

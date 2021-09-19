@@ -17,6 +17,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 	<DataManagementEnabled>Yes</DataManagementEnabled>
 	<DataManagementStagingTable>AAXCustomerPackingSlipJournalLinesStaging</DataManagementStagingTable>
 	<IsPublic>Yes</IsPublic>
+	<IsReadOnly>Yes</IsReadOnly>
 	<PrimaryCompanyContext>DataAreaId</PrimaryCompanyContext>
 	<PrimaryKey>EntityKey</PrimaryKey>
 	<PublicCollectionName>CustomerPackingSlipJournalLines</PublicCollectionName>
@@ -48,7 +49,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 	<Fields>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>AmountCur</Name>
+			<Name>Amount</Name>
 			<DataField>AmountCur</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -66,20 +67,8 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>DeferredPostInvoiceTransRecId</Name>
-			<DataField>DeferredPostInvoiceTransRecId</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
 			<Name>DeliveryDate</Name>
 			<DataField>DeliveryDate</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>DeliveryPostalAddress</Name>
-			<DataField>DeliveryPostalAddress</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
@@ -90,7 +79,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>DlvTerm</Name>
+			<Name>DeliveryTermsId</Name>
 			<DataField>DlvTerm</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -126,44 +115,32 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>InventDimId</Name>
-			<DataField>InventDimId</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>inventQty</Name>
+			<Name>InventoryQty</Name>
 			<DataField>inventQty</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>InventRefId</Name>
+			<Name>InventoryRefId</Name>
 			<DataField>InventRefId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>InventRefTransId</Name>
+			<Name>InventoryRefTransId</Name>
 			<DataField>InventRefTransId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>InventRefType</Name>
+			<Name>InventoryRefType</Name>
 			<DataField>InventRefType</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>InventTransId</Name>
+			<Name>InventoryTransId</Name>
 			<DataField>InventTransId</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>InvoiceTransRefRecId</Name>
-			<DataField>InvoiceTransRefRecId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
@@ -174,7 +151,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>ItemId</Name>
+			<Name>ItemNumber</Name>
 			<DataField>ItemId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -192,7 +169,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>Name</Name>
+			<Name>ItemName</Name>
 			<DataField>Name</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -204,25 +181,25 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>Ordered</Name>
+			<Name>OrderedQty</Name>
 			<DataField>Ordered</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>OrigCountryRegionId</Name>
+			<Name>OriginalCountryRegionId</Name>
 			<DataField>OrigCountryRegionId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>OrigSalesId</Name>
+			<Name>OriginalSalesId</Name>
 			<DataField>OrigSalesId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>OrigStateId</Name>
+			<Name>OriginalStateId</Name>
 			<DataField>OrigStateId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -242,24 +219,6 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 			i:type="AxDataEntityViewMappedField">
 			<Name>ParmLine</Name>
 			<DataField>ParmLine</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>PdsCWQty</Name>
-			<DataField>PdsCWQty</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>PdsCWRemain</Name>
-			<DataField>PdsCWRemain</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>PriceUnit</Name>
-			<DataField>PriceUnit</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
@@ -294,7 +253,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>SalesId</Name>
+			<Name>SalesOrderNumber</Name>
 			<DataField>SalesId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -324,19 +283,13 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>SourceDocumentLine</Name>
-			<DataField>SourceDocumentLine</DataField>
-			<DataSource>CustPackingSlipTrans</DataSource>
-		</AxDataEntityViewField>
-		<AxDataEntityViewField xmlns=""
-			i:type="AxDataEntityViewMappedField">
-			<Name>StatProcId</Name>
+			<Name>IntrastatProcId</Name>
 			<DataField>StatProcId</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>StatValueMST</Name>
+			<Name>InstratstatValueMST</Name>
 			<DataField>StatValueMST</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -348,13 +301,13 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>TransactionCode</Name>
+			<Name>IntrastatTransactionCode</Name>
 			<DataField>TransactionCode</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
 		<AxDataEntityViewField xmlns=""
 			i:type="AxDataEntityViewMappedField">
-			<Name>Transport</Name>
+			<Name>IntrastatTransport</Name>
 			<DataField>Transport</DataField>
 			<DataSource>CustPackingSlipTrans</DataSource>
 		</AxDataEntityViewField>
@@ -382,13 +335,209 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 			<DataField>MainAccount</DataField>
 			<DataSource>DefaultDimensionDAVS</DataSource>
 		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressCountryRegionId</Name>
+			<Mandatory>No</Mandatory>
+			<DataField>CountryRegionId</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressStreetNumber</Name>
+			<DataField>StreetNumber</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressZipCode</Name>
+			<DataField>ZipCode</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressCityInKana</Name>
+			<DataField>CityInKana</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressLongitude</Name>
+			<DataField>Longitude</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressDescription</Name>
+			<DataField>Description</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressDunsNumber</Name>
+			<DataField>DunsNumber</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressLocationId</Name>
+			<AllowEdit>Yes</AllowEdit>
+			<AllowEditOnCreate>Yes</AllowEditOnCreate>
+			<DataField>LocationId</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressStateId</Name>
+			<DataField>State</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressLatitude</Name>
+			<DataField>Latitude</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressCountryRegionISOCode</Name>
+			<DataField>CountryRegionISOCode</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressStreet</Name>
+			<DataField>Street</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressTimeZone</Name>
+			<DataField>TimeZone</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressCountyId</Name>
+			<DataField>County</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressPostBox</Name>
+			<DataField>PostBox</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>IsDeliveryAddressPrivate</Name>
+			<Label>@SCM:IsDeliveryAddressPrivate</Label>
+			<DataField>IsPrivate</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressCity</Name>
+			<DataField>City</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressStreetInKana</Name>
+			<DataField>StreetInKana</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>DeliveryAddressDistrictName</Name>
+			<DataField>DistrictName</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ValidTo</Name>
+			<DataField>ValidTo</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ValidFrom</Name>
+			<DataField>ValidFrom</DataField>
+			<DataSource>LogisticsPostalAddressBaseEntity</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ItemBatchNumber</Name>
+			<DataField>inventBatchId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ItemSerialNumber</Name>
+			<DataField>inventSerialId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>OrderedInventoryStatusId</Name>
+			<DataField>InventStatusId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProductColorId</Name>
+			<DataField>InventColorId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProductConfigurationId</Name>
+			<DataField>configId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProductSizeId</Name>
+			<DataField>InventSizeId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProductStyleId</Name>
+			<DataField>InventStyleId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ProductVersionId</Name>
+			<DataField>InventVersionId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ShippingSiteId</Name>
+			<DataField>InventSiteId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ShippingWarehouseId</Name>
+			<DataField>InventLocationId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
+		<AxDataEntityViewField xmlns=""
+			i:type="AxDataEntityViewMappedField">
+			<Name>ShippingWarehouseLocationId</Name>
+			<DataField>wMSLocationId</DataField>
+			<DataSource>InventDim</DataSource>
+		</AxDataEntityViewField>
 	</Fields>
 	<Keys>
 		<AxDataEntityViewKey>
 			<Name>EntityKey</Name>
 			<Fields>
 				<AxDataEntityViewKeyField>
-					<DataField>SalesId</DataField>
+					<DataField>SalesOrderNumber</DataField>
 				</AxDataEntityViewKeyField>
 				<AxDataEntityViewKeyField>
 					<DataField>DeliveryDate</DataField>
@@ -400,7 +549,7 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 					<DataField>LineNum</DataField>
 				</AxDataEntityViewKeyField>
 				<AxDataEntityViewKeyField>
-					<DataField>InventTransId</DataField>
+					<DataField>InventoryTransId</DataField>
 				</AxDataEntityViewKeyField>
 			</Fields>
 		</AxDataEntityViewKey>
@@ -418,14 +567,14 @@ public class AAXCustomerPackingSlipJournalLinesEntity extends common
 				<AxDataEntityViewRelationConstraint xmlns=""
 					i:type="AxDataEntityViewRelationConstraintField">
 					<Name>RelationConstraintField1</Name>
-					<Field>SalesId</Field>
-					<RelatedField>SalesId</RelatedField>
+					<Field>SalesOrderNumber</Field>
+					<RelatedField>SalesOrderNumber</RelatedField>
 				</AxDataEntityViewRelationConstraint>
 				<AxDataEntityViewRelationConstraint xmlns=""
 					i:type="AxDataEntityViewRelationConstraintField">
 					<Name>RelationConstraintField2</Name>
 					<Field>PackingSlipId</Field>
-					<RelatedField>SalesId</RelatedField>
+					<RelatedField>PackingSlipId</RelatedField>
 				</AxDataEntityViewRelationConstraint>
 				<AxDataEntityViewRelationConstraint xmlns=""
 					i:type="AxDataEntityViewRelationConstraintField">
@@ -456,6 +605,7 @@ public class Metadata extends QueryRun
 			<AxQuerySimpleRootDataSource>
 				<Name>CustPackingSlipTrans</Name>
 				<DynamicFields>Yes</DynamicFields>
+				<IsReadOnly>Yes</IsReadOnly>
 				<Table>CustPackingSlipTrans</Table>
 				<DataSources>
 					<AxQuerySimpleEmbeddedDataSource>
@@ -481,6 +631,7 @@ public class Metadata extends QueryRun
 					<AxQuerySimpleEmbeddedDataSource>
 						<Name>CustPackingSlipTrans_IN</Name>
 						<DynamicFields>Yes</DynamicFields>
+						<IsReadOnly>Yes</IsReadOnly>
 						<Table>CustPackingSlipTrans_IN</Table>
 						<DataSources />
 						<DerivedDataSources />
@@ -499,6 +650,7 @@ public class Metadata extends QueryRun
 					<AxQuerySimpleEmbeddedDataSource>
 						<Name>CustPackingSlipTrans_Intrastat</Name>
 						<DynamicFields>Yes</DynamicFields>
+						<IsReadOnly>Yes</IsReadOnly>
 						<Table>CustPackingSlipTrans_Intrastat</Table>
 						<DataSources />
 						<DerivedDataSources />
@@ -511,6 +663,44 @@ public class Metadata extends QueryRun
 								<Field>RecId</Field>
 								<JoinDataSource>CustPackingSlipTrans</JoinDataSource>
 								<RelatedField>CustPackingSlipTrans</RelatedField>
+							</AxQuerySimpleDataSourceRelation>
+						</Relations>
+					</AxQuerySimpleEmbeddedDataSource>
+					<AxQuerySimpleEmbeddedDataSource>
+						<Name>LogisticsPostalAddressBaseEntity</Name>
+						<ApplyDateFilter>Yes</ApplyDateFilter>
+						<DynamicFields>Yes</DynamicFields>
+						<IsReadOnly>Yes</IsReadOnly>
+						<Table>LogisticsPostalAddressBaseEntity</Table>
+						<DataSources />
+						<DerivedDataSources />
+						<Fields />
+						<Ranges />
+						<JoinMode>OuterJoin</JoinMode>
+						<Relations>
+							<AxQuerySimpleDataSourceRelation>
+								<Name>QueryDataSourceRelation1</Name>
+								<Field>DeliveryPostalAddress</Field>
+								<JoinDataSource>CustPackingSlipTrans</JoinDataSource>
+								<RelatedField>AddressRecId</RelatedField>
+							</AxQuerySimpleDataSourceRelation>
+						</Relations>
+					</AxQuerySimpleEmbeddedDataSource>
+					<AxQuerySimpleEmbeddedDataSource>
+						<Name>InventDim</Name>
+						<DynamicFields>Yes</DynamicFields>
+						<IsReadOnly>Yes</IsReadOnly>
+						<Table>InventDim</Table>
+						<DataSources />
+						<DerivedDataSources />
+						<Fields />
+						<Ranges />
+						<JoinMode>OuterJoin</JoinMode>
+						<Relations>
+							<AxQuerySimpleDataSourceRelation>
+								<Name>QueryDataSourceRelation1</Name>
+								<JoinDataSource>CustPackingSlipTrans</JoinDataSource>
+								<JoinRelationName>InventDim</JoinRelationName>
 							</AxQuerySimpleDataSourceRelation>
 						</Relations>
 					</AxQuerySimpleEmbeddedDataSource>

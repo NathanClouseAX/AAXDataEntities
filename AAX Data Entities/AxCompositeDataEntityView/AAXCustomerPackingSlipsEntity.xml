@@ -11,9 +11,6 @@ public class AAXCustomerPackingSlipsEntity
 		<Methods />
 	</SourceCode>
 	<Label>@AAXDataEntities:CustomerPackingSlipHeaderAndLines</Label>
-	<SubscriberAccessLevel>
-		<Read>Allow</Read>
-	</SubscriberAccessLevel>
 	<EntityCategory>Transaction</EntityCategory>
 	<IsReadOnly>Yes</IsReadOnly>
 	<RootDataEntities>
