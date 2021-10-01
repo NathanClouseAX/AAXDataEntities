@@ -669,6 +669,32 @@
 	</Indexes>
 	<Mappings />
 	<Relations>
+		<AxTableRelation>
+			<Name>AAXCustomerPackingSlipJournalHeaderEntity</Name>
+			<RelatedTable>AAXCustomerPackingSlipJournalHeaderEntity</RelatedTable>
+			<RelatedTableCardinality>ExactlyOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>SalesOrderNumber</Name>
+					<Field>SalesOrderNumber</Field>
+					<RelatedField>SalesOrderNumber</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>PackingSlipId</Name>
+					<Field>PackingSlipId</Field>
+					<RelatedField>PackingSlipId</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>DeliveryDate</Name>
+					<Field>DeliveryDate</Field>
+					<RelatedField>DeliveryDate</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
 		<AxTableRelation xmlns=""
 			i:type="AxTableRelationForeignKey">
 			<Name>DataEntity</Name>
@@ -713,17 +739,11 @@
 			</Constraints>
 		</AxTableRelation>
 		<AxTableRelation>
-			<Name>AAXCustomerPackingSlipJournalHeaderEntity</Name>
-			<Cardinality>ZeroOne</Cardinality>
-			<RelatedTable>AAXCustomerPackingSlipJournalHeaderEntity</RelatedTable>
+			<Name>AAXCustomerPackingSlipJournalHeaderStaging</Name>
+			<RelatedTable>AAXCustomerPackingSlipJournalHeaderStaging</RelatedTable>
+			<RelatedTableCardinality>ExactlyOne</RelatedTableCardinality>
 			<RelationshipType>Association</RelationshipType>
 			<Constraints>
-				<AxTableRelationConstraint xmlns=""
-					i:type="AxTableRelationConstraintField">
-					<Name>SalesOrderNumber</Name>
-					<Field>SalesOrderNumber</Field>
-					<RelatedField>SalesOrderNumber</RelatedField>
-				</AxTableRelationConstraint>
 				<AxTableRelationConstraint xmlns=""
 					i:type="AxTableRelationConstraintField">
 					<Name>PackingSlipId</Name>
@@ -735,6 +755,12 @@
 					<Name>DeliveryDate</Name>
 					<Field>DeliveryDate</Field>
 					<RelatedField>DeliveryDate</RelatedField>
+				</AxTableRelationConstraint>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>OriginalSalesId</Name>
+					<Field>OriginalSalesId</Field>
+					<RelatedField>SalesOrderNumber</RelatedField>
 				</AxTableRelationConstraint>
 			</Constraints>
 		</AxTableRelation>
