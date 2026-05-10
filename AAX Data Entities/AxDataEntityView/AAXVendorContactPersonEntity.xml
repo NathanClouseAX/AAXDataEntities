@@ -4,8 +4,9 @@
 	<SourceCode>
 		<Declaration><![CDATA[
 /// <summary>
-/// The AAXVendorContactInfoEntity provides a entity to use for import/export which does not require
-/// the knowledge of a vendor party number.
+/// The AAXVendorContactPersonEntity provides a data entity for import/export of vendor
+/// contact persons which does not require knowledge of the vendor's party number.
+/// Resolves the party number automatically from the vendor account number.
 /// </summary>
 public class AAXVendorContactPersonEntity extends common
 {
@@ -43,9 +44,10 @@ public class AAXVendorContactPersonEntity extends common
 				<Name>persistEntity</Name>
 				<Source><![CDATA[
     /// <summary>
-    ///
+    /// Persists the entity to the database, skipping validation on DisplayNameSequencePatternName
+    /// which is auto-generated and should not block import operations.
     /// </summary>
-    /// <param name = "_entityCtx"></param>
+    /// <param name = "_entityCtx">The context of the current operation</param>
     public void persistEntity(DataEntityRuntimeContext _entityCtx)
     {
         this.skipDataSourceValidateField(fieldNum(smmContactPersonV2Entity, DisplayNameSequencePatternName), true);
@@ -58,10 +60,11 @@ public class AAXVendorContactPersonEntity extends common
 				<Name>mapEntityToDataSource</Name>
 				<Source><![CDATA[
     /// <summary>
-    ///
+    /// Maps entity fields to the underlying smmContactPersonV2Entity data source,
+    /// ensuring the party number is resolved from the vendor account before mapping.
     /// </summary>
-    /// <param name = "_entityCtx"></param>
-    /// <param name = "_dataSourceCtx"></param>
+    /// <param name = "_entityCtx">The context of the current operation</param>
+    /// <param name = "_dataSourceCtx">The context of the current data entity</param>
     public void mapEntityToDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
     {
 

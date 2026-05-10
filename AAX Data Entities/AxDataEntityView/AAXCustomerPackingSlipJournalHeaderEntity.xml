@@ -3,6 +3,11 @@
 	<Name>AAXCustomerPackingSlipJournalHeaderEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// The AAXCustomerPackingSlipJournalHeaderEntity exposes customer packing slip journal header
+/// records (CustPackingSlipJour) as a read-only data entity with no implicit filters,
+/// including delivery address, financial dimensions, and order taker details.
+/// </summary>
 public class AAXCustomerPackingSlipJournalHeaderEntity extends common
 {
 }

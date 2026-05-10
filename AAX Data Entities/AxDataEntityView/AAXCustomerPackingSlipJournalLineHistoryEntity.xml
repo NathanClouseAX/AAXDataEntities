@@ -3,6 +3,11 @@
 	<Name>AAXCustomerPackingSlipJournalLineHistoryEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// The AAXCustomerPackingSlipJournalLineHistoryEntity exposes customer packing slip journal
+/// line history records for Brazil (CustPackingSlipTransHistory) as a data entity,
+/// providing historical packing slip line data including fiscal document information.
+/// </summary>
 public class AAXCustomerPackingSlipJournalLineHistoryEntity extends common
 {
 }

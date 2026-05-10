@@ -4,8 +4,9 @@
 	<SourceCode>
 		<Declaration><![CDATA[
 /// <summary>
-/// The AAXCustomerContactInfoEntity provides a entity to use for import/export which does not require
-/// the knowledge of a Customer party number.
+/// The AAXCustomerContactPersonEntity provides a data entity for import/export of customer
+/// contact persons which does not require knowledge of the customer's party number.
+/// Resolves the party number automatically from the customer account number.
 /// </summary>
 public class AAXCustomerContactPersonEntity extends common
 {
@@ -70,6 +71,12 @@ public class AAXCustomerContactPersonEntity extends common
 			<Method>
 				<Name>mapEntityToDataSource</Name>
 				<Source><![CDATA[
+    /// <summary>
+    /// Maps entity fields to the underlying smmContactPersonV2Entity data source,
+    /// ensuring the party number is resolved from the customer account before mapping.
+    /// </summary>
+    /// <param name = "_entityCtx">The context of the current operation</param>
+    /// <param name = "_dataSourceCtx">The context of the current data entity</param>
     public void mapEntityToDataSource(DataEntityRuntimeContext _entityCtx, DataEntityDataSourceRuntimeContext _dataSourceCtx)
     {
 

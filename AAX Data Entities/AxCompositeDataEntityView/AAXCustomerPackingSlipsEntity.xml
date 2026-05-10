@@ -3,6 +3,11 @@
 	<Name>AAXCustomerPackingSlipsEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// The AAXCustomerPackingSlipsEntity is a read-only composite data entity that combines
+/// packing slip journal headers and their associated lines into a single entity
+/// for export via the Data Management Framework.
+/// </summary>
 [CompositeDataEntityView]
 public class AAXCustomerPackingSlipsEntity
 {

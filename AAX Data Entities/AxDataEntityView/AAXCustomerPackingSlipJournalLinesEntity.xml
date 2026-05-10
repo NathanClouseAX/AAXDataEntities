@@ -3,6 +3,11 @@
 	<Name>AAXCustomerPackingSlipJournalLinesEntity</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
+/// <summary>
+/// The AAXCustomerPackingSlipJournalLinesEntity exposes customer packing slip journal line
+/// records (CustPackingSlipTrans) as a read-only data entity with no implicit filters,
+/// providing item, quantity, and inventory dimension details for each packing slip line.
+/// </summary>
 public class AAXCustomerPackingSlipJournalLinesEntity extends common
 {
 }

@@ -256,3 +256,4 @@ BuildProjectResult.xml
 CompileLabels.xml
 *.xref
 *.$usr
+/.claude
